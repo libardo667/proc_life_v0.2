@@ -1,0 +1,75 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+      "story": {
+        "type": "object",
+        "patternProperties": {
+          "^part_\\d+$": {
+            "type": "object",
+            "properties": {
+              "description": { "type": "string" },
+              "relevant_characters": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": { "type": "string" },
+                    "description": { "type": "string" },
+                    "location": { "type": "string" },
+                    "is_player_character": { "type": "boolean" }
+                  },
+                  "required": ["name", "description", "location", "is_player_character"]
+                }
+              },
+              "relevant_locations": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": { "type": "string" },
+                    "description": { "type": "string" },
+                    "connections": {
+                      "type": "array",
+                      "items": { "type": "string" }
+                    }
+                  },
+                  "required": ["name", "description", "connections"]
+                }
+              },
+              "relevant_items": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": { "type": "string" },
+                    "description": { "type": "string" },
+                    "location": { "type": "string" }
+                  },
+                  "required": ["name", "description", "location"]
+                }
+              },
+              "progression_condition": {
+                "oneOf": [
+                  { "type": "null" },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "name": { "type": "string" },
+                      "condition": { "type": "string" },
+                      "action": { "type": "string" }
+                    },
+                    "required": ["name", "condition", "action"]
+                  }
+                ]
+              }
+            },
+            "required": ["description", "relevant_characters", "relevant_locations", "relevant_items"]
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "required": ["story"],
+    "additionalProperties": false
+  }
