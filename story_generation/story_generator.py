@@ -16,7 +16,7 @@ class StoryGenerator:
         
     def init_game_state(self):
         self.generate_story_outline()
-        #self.parse_outline_into_parts()
+        self.parse_outline_into_parts()
         self.generate_story_json_from_outline_parts()
         game_world, player, is_valid, error = self.get_entities_from_story_json()
     
@@ -206,9 +206,6 @@ Here is the story outline part {part_number} to convert:
         return story_part_json
 
     def generate_story_json_from_outline_parts(self):
-        with open("story.json", "r") as f:
-            self.story = json.load(f)
-        return
         story_json  = {"story": {}}
         for i, outline_part in enumerate(self.outline_parts):
             part_number = f"part_{i+1}"

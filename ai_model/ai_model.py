@@ -7,7 +7,7 @@ import torch
 from transformers import logging
 
 class OpenSourceAIModel:
-    def __init__(self, model_name="EleutherAI/gpt-j-6b"):
+    def __init__(self, model_name="allenai/MolmoE-1B-0924"):
         # Initialize the tokenizer and the model
         token = os.getenv("$OPENSOURCE_TOKEN$")
         
@@ -16,7 +16,7 @@ class OpenSourceAIModel:
         print("Initializing tokenizer...")
         self.tokenizer = AutoTokenizer.from_pretrained(model_name, token=token)
         print("Initializing model, this will take a while...")
-        self.model = AutoModelForCausalLM.from_pretrained(model_name, token=token)
+        self.model = AutoModelForCausalLM.from_pretrained(model_name, token=token, trust_remote_code=True)
         self.messages = []
         
     def generate(self, max_new_tokens = 1000, temperature = 0.7):
